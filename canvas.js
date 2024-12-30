@@ -95,6 +95,19 @@ const drawLines = () => {
   contextLines.moveTo(260, 240);
   contextLines.bezierCurveTo(280, 100, 340, 100, 360, 240);
   contextLines.stroke();
+
+  // Donut
+  contextLines.beginPath();
+  contextLines.arc(70, 310, 50, degreesToRadians(0), degreesToRadians(360));
+  contextLines.arc(
+    70,
+    310,
+    25,
+    degreesToRadians(0),
+    degreesToRadians(360),
+    true
+  );
+  contextLines.fill();
 };
 
 const drawFill = () => {};
