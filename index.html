@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas testing</title>
+  </head>
+
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      color: gray;
+    }
+
+    .canvas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      width: 1260px;
+      margin: 0 auto;
+    }
+
+    .canvas {
+      position: relative;
+      display: block;
+      padding-top: 20px;
+
+      span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 12px;
+      }
+
+      canvas {
+        border: 1px solid gray;
+      }
+    }
+  </style>
+
+  <body>
+    <div class="canvas-grid">
+      <div class="canvas">
+        <span>Path example</span>
+        <canvas id="canvas-lines" width="400" height="400"
+          >Something went wrong...
+        </canvas>
+      </div>
+
+      <div class="canvas">
+        <span>Shapes example</span>
+        <canvas id="canvas-shapes" width="400" height="400"
+          >Something went wrong...
+        </canvas>
+      </div>
+
+      <div class="canvas">
+        <span>Fills and gradients example</span>
+        <canvas id="canvas-fill" width="400" height="400"
+          >Something went wrong...
+        </canvas>
+      </div>
+    </div>
+
+    <script src="./canvas.js" type="module"></script>
+  </body>
+</html>
