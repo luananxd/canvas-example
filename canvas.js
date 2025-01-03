@@ -2,12 +2,14 @@
 const canvasLines = document.getElementById("canvas-lines");
 const canvasShapes = document.getElementById("canvas-shapes");
 const canvasFill = document.getElementById("canvas-fill");
+const canvasStroke = document.getElementById("canvas-stroke");
 const canvasFont = document.getElementById("canvas-font");
 const canvasImages = document.getElementById("canvas-images");
 // Contexts
 const contextLines = canvasLines.getContext("2d");
 const contextShapes = canvasShapes.getContext("2d");
 const contextFill = canvasFill.getContext("2d");
+const contextStroke = canvasStroke.getContext("2d");
 const contextFont = canvasFont.getContext("2d");
 const contextImages = canvasImages.getContext("2d");
 
@@ -120,6 +122,66 @@ const drawLines = () => {
   contextLines.fill(search2D);
 };
 
+const drawStroke = () => {
+  setGridForCanvas(
+    contextStroke,
+    canvasStroke.offsetWidth,
+    canvasStroke.offsetHeight
+  );
+
+  // Line width
+  for (let i = 0; i < 5; i++) {
+    const lineWidth = 1 + 2 * i;
+    contextStroke.lineWidth = lineWidth;
+
+    contextStroke.beginPath();
+    contextStroke.moveTo(20 + i * 10 + lineWidth, 20);
+    contextStroke.lineTo(20 + i * 10 + lineWidth, 120);
+    contextStroke.stroke();
+  }
+
+  contextStroke.lineWidth = 10;
+
+  // Line cap
+  const capOptions = ["butt", "round", "square"];
+  capOptions.forEach((cap, i) => {
+    contextStroke.lineCap = cap;
+    contextStroke.beginPath();
+    contextStroke.moveTo(100, 25 + i * 25);
+    contextStroke.lineTo(200, 25 + i * 25);
+    contextStroke.stroke();
+  });
+
+  contextStroke.lineCap = "butt";
+
+  // Line join
+  const joinOptions = ["round", "bevel", "miter"];
+  joinOptions.forEach((join, i) => {
+    contextStroke.lineJoin = join;
+    contextStroke.beginPath();
+    contextStroke.moveTo(230, 20 + i * 30);
+    contextStroke.lineTo(250, 40 + i * 30);
+    contextStroke.lineTo(270, 20 + i * 30);
+    contextStroke.lineTo(290, 40 + i * 30);
+    contextStroke.stroke();
+  });
+
+  // Line dash
+  const lineDashOptions = [
+    [15, 5],
+    [5, 5, 20, 5],
+    [5, 10],
+  ];
+
+  lineDashOptions.forEach((dash, i) => {
+    contextStroke.setLineDash(dash);
+    contextStroke.beginPath();
+    contextStroke.moveTo(20, 150 + i * 25);
+    contextStroke.lineTo(120, 150 + i * 25);
+    contextStroke.stroke();
+  });
+};
+
 const drawText = () => {
   setGridForCanvas(
     contextFont,
@@ -168,3 +230,6 @@ const drawImage = () => {
 drawShapes();
 drawLines();
 drawFill();
+drawStroke();
+drawText();
+drawImage();
