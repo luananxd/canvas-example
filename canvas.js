@@ -122,6 +122,95 @@ const drawLines = () => {
   contextLines.fill(search2D);
 };
 
+const drawFill = () => {
+  setGridForCanvas(
+    contextFill,
+    canvasFill.offsetWidth,
+    canvasFill.offsetHeight
+  );
+
+  // Fill
+  contextFill.beginPath();
+  contextFill.arc(70, 70, 50, degreesToRadians(0), degreesToRadians(360));
+  contextFill.fillStyle = "orange";
+  contextFill.fill();
+
+  // Transparency
+  contextFill.beginPath();
+  contextFill.arc(190, 70, 50, degreesToRadians(0), degreesToRadians(360));
+  contextFill.fillStyle = "#b44fe3";
+  contextFill.globalAlpha = 0.4;
+  contextFill.fill();
+  contextFill.globalAlpha = 1;
+
+  // Linear gradient
+  const linearGradient = contextFill.createLinearGradient(260, 20, 360, 120);
+  linearGradient.addColorStop(0, "#f51dee");
+  linearGradient.addColorStop(0.3, "#f51d45");
+  linearGradient.addColorStop(1, "#1de6f5");
+  contextFill.beginPath();
+  contextFill.arc(310, 70, 50, degreesToRadians(0), degreesToRadians(360));
+  contextFill.fillStyle = linearGradient;
+  contextFill.fill();
+
+  // Radial gradient
+  const radialGradient = contextFill.createRadialGradient(
+    55,
+    180,
+    15,
+    70,
+    190,
+    50
+  );
+  radialGradient.addColorStop(0, "#ffffff");
+  radialGradient.addColorStop(0.3, "#ededed");
+  radialGradient.addColorStop(0.7, "#b5b5b5");
+  radialGradient.addColorStop(1, "#828282");
+  contextFill.beginPath();
+  contextFill.arc(70, 190, 50, degreesToRadians(0), degreesToRadians(360));
+  contextFill.fillStyle = radialGradient;
+  contextFill.fill();
+
+  // Conic gradient
+  const conicGradient = contextFill.createConicGradient(0, 190, 190);
+  conicGradient.addColorStop(0, "#ffe252");
+  conicGradient.addColorStop(0.25, "#ffe252");
+  conicGradient.addColorStop(0.25, "#60ff52");
+  conicGradient.addColorStop(0.5, "#60ff52");
+  conicGradient.addColorStop(0.5, "#ff5252");
+  conicGradient.addColorStop(0.75, "#ff5252");
+  conicGradient.addColorStop(0.75, "#457ff5");
+  conicGradient.addColorStop(1, "#457ff5");
+  contextFill.beginPath();
+  contextFill.arc(190, 190, 50, degreesToRadians(0), degreesToRadians(360));
+  contextFill.fillStyle = conicGradient;
+  contextFill.fill();
+
+  // Pattern
+  const img = new Image();
+  img.src = "./img/pattern.png";
+
+  img.onload = () => {
+    const pattern = contextFill.createPattern(img, "repeat");
+    contextFill.beginPath();
+    contextFill.arc(310, 190, 50, degreesToRadians(0), degreesToRadians(360));
+    contextFill.fillStyle = pattern;
+    contextFill.shadowOffsetX = null;
+    contextFill.shadowOffsetY = null;
+    contextFill.shadowColor = null;
+    contextFill.fill();
+  };
+
+  // Shadow
+  contextFill.beginPath();
+  contextFill.arc(70, 310, 50, degreesToRadians(0), degreesToRadians(360));
+  contextFill.fillStyle = "#f51dee";
+  contextFill.shadowOffsetX = 10;
+  contextFill.shadowOffsetY = 10;
+  contextFill.shadowColor = "#1de6f5";
+  contextFill.fill();
+};
+
 const drawStroke = () => {
   setGridForCanvas(
     contextStroke,
