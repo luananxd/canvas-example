@@ -2,10 +2,12 @@
 const canvasLines = document.getElementById("canvas-lines");
 const canvasShapes = document.getElementById("canvas-shapes");
 const canvasFill = document.getElementById("canvas-fill");
+const canvasImages = document.getElementById("canvas-images");
 // Contexts
 const contextLines = canvasLines.getContext("2d");
 const contextShapes = canvasShapes.getContext("2d");
 const contextFill = canvasFill.getContext("2d");
+const contextImages = canvasImages.getContext("2d");
 
 const degreesToRadians = (degrees) => {
   return (degrees * Math.PI) / 180;
@@ -116,7 +118,26 @@ const drawLines = () => {
   contextLines.fill(search2D);
 };
 
-const drawFill = () => {};
+const drawImage = () => {
+  setGridForCanvas(
+    contextImages,
+    canvasImages.offsetWidth,
+    canvasImages.offsetHeight
+  );
+
+  const testImage = new Image();
+  testImage.src = "./img/boats.jpg";
+
+  // Image
+  testImage.addEventListener("load", () => {
+    contextImages.drawImage(testImage, 0, 0, 200, 100);
+    contextImages.drawImage(testImage, 100, 100, 100, 200, 0, 110, 100, 200);
+  });
+
+  // Canvas
+  contextImages.drawImage(canvasFill, 200, 200, 100, 100);
+  contextImages.drawImage(canvasFill, 0, 100, 200, 200, 300, 200, 100, 100);
+};
 
 drawShapes();
 drawLines();
