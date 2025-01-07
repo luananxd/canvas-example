@@ -6,6 +6,7 @@ const canvasStroke = document.getElementById("canvas-stroke");
 const canvasFont = document.getElementById("canvas-font");
 const canvasImages = document.getElementById("canvas-images");
 const canvasClip = document.getElementById("canvas-transformations");
+const canvasBaseAnimations = document.getElementById("canvas-base-animation");
 // Contexts
 const contextLines = canvasLines.getContext("2d");
 const contextShapes = canvasShapes.getContext("2d");
@@ -14,6 +15,7 @@ const contextStroke = canvasStroke.getContext("2d");
 const contextFont = canvasFont.getContext("2d");
 const contextImages = canvasImages.getContext("2d");
 const contextClip = canvasClip.getContext("2d");
+const contextBaseAnimations = canvasBaseAnimations.getContext("2d");
 
 const degreesToRadians = (degrees) => {
   return (degrees * Math.PI) / 180;
@@ -367,6 +369,67 @@ const drawClip = async () => {
   contextClip.drawImage(image, 200, 0, 100, 100);
 };
 
+const useBaseAnimations = () => {
+  const init = () => {
+    contextBaseAnimations.clearRect(
+      0,
+      0,
+      canvasBaseAnimations.offsetWidth,
+      canvasBaseAnimations.offsetHeight
+    );
+    setGridForCanvas(
+      contextBaseAnimations,
+      canvasBaseAnimations.offsetWidth,
+      canvasBaseAnimations.offsetHeight
+    );
+    contextBaseAnimations.beginPath();
+    contextBaseAnimations.arc(
+      canvasBaseAnimations.offsetWidth / 2,
+      canvasBaseAnimations.offsetHeight / 2,
+      110,
+      degreesToRadians(0),
+      degreesToRadians(360)
+    );
+    contextBaseAnimations.strokeStyle = "grey";
+    contextBaseAnimations.stroke();
+  };
+
+  const draw = () => {
+    init();
+    contextBaseAnimations.lineWidth = 2;
+    contextBaseAnimations.save();
+    const minutes = new Date().getMinutes();
+    const seconds = new Date().getSeconds();
+
+    contextBaseAnimations.translate(
+      canvasBaseAnimations.offsetWidth / 2,
+      canvasBaseAnimations.offsetHeight / 2
+    );
+    contextBaseAnimations.save();
+
+    // Seconds line
+    contextBaseAnimations.strokeStyle = "red";
+    contextBaseAnimations.rotate(degreesToRadians(6 * seconds - 90));
+    contextBaseAnimations.beginPath();
+    contextBaseAnimations.lineTo(0, 0);
+    contextBaseAnimations.lineTo(100, 0);
+    contextBaseAnimations.stroke();
+
+    contextBaseAnimations.restore();
+    contextBaseAnimations.strokeStyle = "black";
+    contextBaseAnimations.rotate(degreesToRadians(6 * minutes - 90));
+    contextBaseAnimations.beginPath();
+    contextBaseAnimations.lineTo(0, 0);
+    contextBaseAnimations.lineTo(80, 0);
+    contextBaseAnimations.stroke();
+
+    contextBaseAnimations.restore();
+    window.requestAnimationFrame(draw);
+  };
+
+  window.requestAnimationFrame(draw);
+};
+
 drawShapes();
 drawLines();
 drawFill();
@@ -374,3 +437,5 @@ drawStroke();
 drawText();
 drawImage();
 drawClip();
+
+useBaseAnimations();
