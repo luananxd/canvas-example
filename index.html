@@ -36,6 +36,10 @@
         border: 1px solid gray;
       }
     }
+
+    #berries {
+      display: none;
+    }
   </style>
 
   <body>
@@ -57,6 +61,13 @@
       <div class="canvas">
         <span>Fills and gradients example</span>
         <canvas id="canvas-fill" width="400" height="400"
+          >Something went wrong...
+        </canvas>
+      </div>
+
+      <div class="canvas">
+        <span>Line styles example</span>
+        <canvas id="canvas-stroke" width="400" height="400"
           >Something went wrong...
         </canvas>
       </div>
@@ -89,6 +100,12 @@
         </canvas>
       </div>
 
+      <div class="canvas">
+        <span>Advanced animations example</span>
+        <canvas id="canvas-advanced-animation" width="400" height="400"
+          >Something went wrong...
+        </canvas>
+      </div>
     </div>
 
     <script src="./canvas.js" type="module"></script>

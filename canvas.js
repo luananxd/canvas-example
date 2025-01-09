@@ -7,6 +7,9 @@ const canvasFont = document.getElementById("canvas-font");
 const canvasImages = document.getElementById("canvas-images");
 const canvasClip = document.getElementById("canvas-transformations");
 const canvasBaseAnimations = document.getElementById("canvas-base-animation");
+const canvasAdvancedAnimations = document.getElementById(
+  "canvas-advanced-animation"
+);
 // Contexts
 const contextLines = canvasLines.getContext("2d");
 const contextShapes = canvasShapes.getContext("2d");
@@ -16,6 +19,7 @@ const contextFont = canvasFont.getContext("2d");
 const contextImages = canvasImages.getContext("2d");
 const contextClip = canvasClip.getContext("2d");
 const contextBaseAnimations = canvasBaseAnimations.getContext("2d");
+const contextAdvancedAnimations = canvasAdvancedAnimations.getContext("2d");
 
 const degreesToRadians = (degrees) => {
   return (degrees * Math.PI) / 180;
@@ -430,6 +434,45 @@ const useBaseAnimations = () => {
   window.requestAnimationFrame(draw);
 };
 
+const useAdvancedAnimations = () => {
+  let hue = 229;
+  const point = {
+    x: 200,
+    y: 200,
+    radius: 30,
+    color: `hsl(${hue} 100% 50%)`,
+    draw() {
+      contextAdvancedAnimations.fillStyle = this.color;
+      contextAdvancedAnimations.beginPath();
+      contextAdvancedAnimations.moveTo(this.x, this.y);
+      contextAdvancedAnimations.arc(
+        this.x,
+        this.y,
+        this.radius,
+        degreesToRadians(0),
+        degreesToRadians(360)
+      );
+      contextAdvancedAnimations.closePath();
+      contextAdvancedAnimations.fill();
+    },
+  };
+
+  const updatePoint = () => {
+    hue >= 360 ? (hue = 1) : hue++;
+    point.color = `hsl(${hue} 100% 50%)`;
+    point.draw();
+  };
+
+  canvasAdvancedAnimations.addEventListener("mousemove", (event) => {
+    point.x = event.layerX;
+    point.y = event.layerY;
+
+    updatePoint();
+  });
+
+  point.draw();
+};
+
 drawShapes();
 drawLines();
 drawFill();
@@ -439,3 +482,4 @@ drawImage();
 drawClip();
 
 useBaseAnimations();
+useAdvancedAnimations();
